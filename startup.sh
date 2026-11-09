@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-
 echo "Step 1/6: Initialising parameters..."
 # Dynamically retrieve the GCP VM instance name (fallback to hostname)
 INSTANCE_NAME=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/name)
@@ -12,7 +11,7 @@ fi
 # Extract just the username (e.g., j_h_meijer) from $HOME for the .env file :)
 USER_NAME=$(basename "$HOME")
 REPO_DIR="${HOME}/DE2026"
-DEPLOY_DIR="/home/${REPO_DIR}/lab6/deployment"
+DEPLOY_DIR="${REPO_DIR}/lab6/deployment"
 ENV_FILE="${DEPLOY_DIR}/.env"
 
 echo "Step 2/6: Pulling latest changes from Git repository..."
@@ -21,7 +20,7 @@ cd "${REPO_DIR}"
 git checkout -- lab6/deployment/.env 2>/dev/null || true
 git pull
 
-echo "Step 3/6. Retrieving current external IP for ${INSTANCE_NAME}..."
+echo "Step 3/6: Retrieving current external IP for ${INSTANCE_NAME}..."
 # Queries the GCP internal metadata server directly (fastest when run inside the VM)
 EXTERNAL_IP=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)
 
@@ -40,7 +39,7 @@ echo "Found external IP: ${EXTERNAL_IP}"
 echo "Step 4/6: Updating ${ENV_FILE} with external IP..."
 cat <<EOF > "${ENV_FILE}"
 EXTERNAL_IP=${EXTERNAL_IP}
-USER_HOME=${USER_HOME}
+USER_HOME=${USER_NAME}
 EOF
 
 echo "Updated .env contents! Value:"
@@ -51,10 +50,10 @@ cd "${DEPLOY_DIR}"
 sudo docker compose down
 sudo docker compose up -d --build
 
-echo "Step 6/6: Waiting 10 seconds for JupyterLab to initialize, please hold on thight..."
+echo "Step 6/6: Waiting 10 seconds for JupyterLab to initialize, please hold on tight..."
 sleep 10
 echo "--------------------------------------------------------"
 echo "Cluster started! Your JupyterLab URL with token:"
 sudo docker logs spark-driver-app 2>&1 | grep -E "http://(127\.0\.0\.1|localhost):8888/lab\?token=" | tail -n 1 | sed "s/127.0.0.1/${EXTERNAL_IP}/g; s/localhost/${EXTERNAL_IP}/g"
 echo "--------------------------------------------------------"
-eco "Good luck with the assignment! :) -Joeke"
+echo "Good luck with the assignment! :) -Joeke"
