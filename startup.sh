@@ -50,10 +50,23 @@ cd "${DEPLOY_DIR}"
 sudo docker compose down
 sudo docker compose up -d --build
 
-echo "Step 6/6: Waiting 10 seconds for JupyterLab to initialize, please hold on tight..."
-sleep 10
+echo "Step 6/6: Waiting for JupyterLab to generate the login token (depending on the instance, this may take upto 25 seconds)..."
+JUPYTER_URL=""
+for i in $(seq 1 30); do
+    RAW_URL=$(sudo docker logs spark-driver-app 2>&1 | grep -Eo "http://127\.0\.0\.1:8888/lab\?token=[a-zA-Z0-9]+" | tail -n 1 || true)
+    if [ -n "$RAW_URL" ]; then
+        JUPYTER_URL=$(echo "$RAW_URL" | sed "s/127.0.0.1/${EXTERNAL_IP}/g")
+        break
+    fi
+    sleep 2
+done
+
 echo "--------------------------------------------------------"
-echo "Cluster started! Your JupyterLab URL with token:"
-sudo docker logs spark-driver-app 2>&1 | grep -E "http://(127\.0\.0\.1|localhost):8888/lab\?token=" | tail -n 1 | sed "s/127.0.0.1/${EXTERNAL_IP}/g; s/localhost/${EXTERNAL_IP}/g"
+if [ -n "$JUPYTER_URL" ]; then
+    echo "Cluster started! Your JupyterLab URL with token:"
+    echo "$JUPYTER_URL"
+else
+    echo "JupyterLab took longer than 60s. Run 'sudo docker logs spark-driver-app' to check."
+fi
 echo "--------------------------------------------------------"
 echo "Good luck with the assignment! :) -Joeke"
