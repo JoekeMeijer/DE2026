@@ -262,7 +262,7 @@ rid,avg_price,rating,contact
 261,1.86,3.33,cbernetti78@narod.ru
 262,73.53,3.48,aduiged79@diigo.com
 263,78.3,2.06,icawley7a@hud.gov
-264,-0.06,1.89,fbagge7b@miitbeian.gov.cn
+264,0.06,1.89,fbagge7b@miitbeian.gov.cn
 265,51.49,3.57,cpontefract7c@mit.edu
 266,89.83,4.01,jlindsay7d@oracle.com
 267,72.7,5.22,ccannell7e@fema.gov
@@ -398,7 +398,7 @@ rid,avg_price,rating,contact
 397,32.85,1.56,kszwandtb0@xing.com
 398,78.8,2.63,keberleb1@latimes.com
 399,57.72,2.87,astringfellowb2@furl.net
-400,-0.31,2.97,aheavysideb3@netlog.com
+400,0.31,2.97,aheavysideb3@netlog.com
 401,86.26,4.1,smacshaneb4@google.nl
 402,42.14,0.74,lkleynb5@ed.gov
 403,59.35,3.53,mshakesbyb6@taobao.com
@@ -407,7 +407,7 @@ rid,avg_price,rating,contact
 406,55.95,5.37,fbrinkworthb9@tripod.com
 407,64.02,2.51,mevinsba@wikispaces.com
 408,58.32,1.92,dperkisbb@pcworld.com
-409,-4.51,3.32,edeardsbc@dot.gov
+409,4.51,3.32,edeardsbc@dot.gov
 410,64.27,2.25,sletchbd@nps.gov
 411,23.06,4.49,bhallawellbe@w3.org
 412,23.81,2.16,tlemingbf@hubpages.com
@@ -505,9 +505,9 @@ rid,avg_price,rating,contact
 504,35.54,2.79,lcadallederdz@sfgate.com
 505,66.63,2.68,wessele0@hhs.gov
 506,70.74,3.09,ckenryde1@walmart.com
-507,-1.17,3.06,dpickerine2@mozilla.com
+507,1.17,3.06,dpickerine2@mozilla.com
 508,25.9,3.03,rblackborowe3@google.com.hk
-509,-2.24,1.62,cvearnalse4@samsung.com
+509,2.24,1.62,cvearnalse4@samsung.com
 510,21.16,3.16,gfenelowe5@paypal.com
 511,56.38,2.24,fsilcockse6@scientificamerican.com
 512,39.94,3.11,mdaughtone7@prweb.com
@@ -577,7 +577,7 @@ rid,avg_price,rating,contact
 576,20.68,2.43,vwigginfz@51.la
 577,87.59,2.06,ebraganzag0@naver.com
 578,51.72,3.22,abetzg1@wufoo.com
-579,-0.13,2.87,ocowlingg2@spiegel.de
+579,0.13,2.87,ocowlingg2@spiegel.de
 580,57.99,2.85,dpriestleyg3@state.gov
 581,27.27,2.34,drestieauxg4@tripod.com
 582,94.05,2.22,abrimblecombg5@sina.com.cn
@@ -732,7 +732,7 @@ rid,avg_price,rating,contact
 731,34.74,3.44,sworthyka@kickstarter.com
 732,32.07,1.52,cvispokb@ameblo.jp
 733,40.62,3.58,cdunwoodykc@live.com
-734,-1.78,3.75,ehullykd@nps.gov
+734,1.78,3.75,ehullykd@nps.gov
 735,59.36,3.63,mpetofike@macromedia.com
 736,53.12,4.68,cquinneykf@usatoday.com
 737,24.74,2.83,ssleightholmekg@whitehouse.gov
@@ -789,7 +789,7 @@ rid,avg_price,rating,contact
 788,56.16,4.35,cbramhamlv@dot.gov
 789,53.97,4.4,jburtonlw@microsoft.com
 790,50.34,3.77,mpyerlx@ow.ly
-791,17.09,-0.09,iconantly@mysql.com
+791,17.09,0.09,iconantly@mysql.com
 792,36.23,4.5,nguisotlz@alibaba.com
 793,46.61,3.83,phaslamm0@mozilla.org
 794,46.08,1.38,elapworthm1@cbslocal.com

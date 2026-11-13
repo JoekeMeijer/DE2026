@@ -1,0 +1,56 @@
+steps:
+  # 1. Create the Dataproc Cluster
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'gcloud'
+    args:
+      - 'dataproc'
+      - 'clusters'
+      - 'create'
+      - 'cluster-de1'
+      - '--enable-component-gateway'
+      - '--region=$_REGION'
+      - '--public-ip-address'
+      - '--master-machine-type=n4d-standard-2'
+      - '--master-boot-disk-type=hyperdisk-balanced'
+      - '--master-boot-disk-size=50'
+      - '--num-workers=2'
+      - '--worker-machine-type=n4d-standard-2'
+      - '--worker-boot-disk-type=hyperdisk-balanced'
+      - '--worker-boot-disk-size=50'
+      - '--secondary-worker-boot-disk-type=hyperdisk-balanced'
+      - '--secondary-worker-boot-disk-size=50'
+      - '--image-version=3.0-ubuntu24'
+      - '--properties=spark:spark.dataproc.engine=default,spark:spark.dataproc.lightningEngine.runtime=default,dataproc:dataproc.logging.stackdriver.job.driver.enable=true'
+      - '--optional-components=ICEBERG,DELTA'
+      - '--scopes=https://www.googleapis.com/auth/cloud-platform'
+      - '--secondary-worker-type=non-preemptible'
+      - '--project=$PROJECT_ID'
+
+  # 2. Submit the PySpark Job to the Cluster
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'gcloud'
+    args:
+      - 'dataproc'
+      - 'jobs'
+      - 'submit'
+      - 'pyspark'
+      - 'gs://$_DATA_REPO/dataproc_example.py'
+      - '--cluster=cluster-de1'
+      - '--region=$_REGION'
+      - '--properties=spark.jars.packages=org.apache.spark:spark-sql-kafka-0-10_2.13:4.1.2'
+
+  # 3. Delete/Clean up the Cluster
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'gcloud'
+    args:
+      - 'dataproc'
+      - 'clusters'
+      - 'delete'
+      - 'cluster-de1'
+      - '--region=$_REGION'
+      - '--quiet'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  
+timeout: '1800s'

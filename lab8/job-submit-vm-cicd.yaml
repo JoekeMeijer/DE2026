@@ -1,0 +1,34 @@
+steps:
+  # Step 1: Copy Spark application file from Cloud Build workspace to the VM
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: '/bin/sh'
+    args:
+      - '-c'
+      - |
+        gcloud compute scp ./lab8/submit_job_example/data_pipeline.py $_VM_NAME:/tmp/data_pipeline.py \
+          --zone=$_ZONE \
+          --project=$PROJECT_ID
+
+  # Step 2 Copy the file from the VM host into the spark driver container
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'compute'
+      - 'ssh'
+      - '$_VM_NAME'
+      - '--zone=$_ZONE'
+      - '--command=docker cp /tmp/data_pipeline.py spark-driver-app:/tmp/data_pipeline.py'
+  # Step 3: SSH into the VM and run spark-submit
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: '/bin/sh'
+    args:
+      - '-c'
+      - |
+        gcloud compute ssh $_VM_NAME \
+          --zone=$_ZONE \
+          --project=$PROJECT_ID \
+          --command="
+            # Setup deployment directory
+            sudo docker exec spark-driver-app spark-submit --master spark://spark-master:7077 /tmp/data_pipeline.py --project_id $PROJECT_ID --temp_bucket $_TEMP_BUCKET
+            "
+options:
+  logging: CLOUD_LOGGING_ONLY
