@@ -33,6 +33,14 @@ services:
       - notebooks:/home/jovyan/notebooks  # jovyan is the default user of the image all-spark-notebook:spark-3.1.2. Do not change this
       - data:/home/jovyan/data
       - checkpoint:/home/jovyan/checkpoint
+      - ../../lab7:/home/jovyan/notebooks/lab7
+      - ../../lab8:/home/jovyan/notebooks/lab8
+      - ../../lab9:/home/jovyan/notebooks/lab9
+      - ../../lab7/data:/home/jovyan/data/lab7
+      - ../../lab8/exercises_data:/home/jovyan/data/lab8
+      - ../../lab8/exercises_model:/home/jovyan/data/lab8-model
+      - ../../lab8/submit_job_example:/home/jovyan/jobs/lab8
+      - ../../lab9/data:/home/jovyan/data/lab9
     depends_on:
       - spark-master
       - kafka
